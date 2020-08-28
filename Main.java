@@ -1,12 +1,33 @@
 import java.util.concurrent.*;
 
+// There is a barber sleeping in his shop. When a
+// customer comes, he checks if the barber is
+// sleeping and wakes him up. If there are no
+// other customers in the waiting room, the barber
+// cuts his hair. Else the customer takes a set in
+// the waiting room. But if there are no seats, he
+// leaves. Once a barber finishes cutting hair, he
+// checks if there are any customers in the
+// waiting room. If not, he goes back to sleep
+// again. The idea is the barber works only when a
+// customer arrives, and sleeps otherwise.
+
 class Main {
   static Semaphore barber;
   static Semaphore customer;
   static Semaphore accessSeats;
   static int seats = 4;
   static int N = 20;
+  // accessSeats: only one sit / get up at once
+  // seats: no. of seats in the waiting room
+  // N: no .of customers
 
+  // The barber is providing 24x7 service:
+  // 1. sleeps until a customer wakes him up
+  // 2. he picks first customer in room (b.release)
+  // 3. one seat is freed up (seats++)
+  // 4. cuts customer's hair (sleep 1s)
+  // 5. ... goes back to sleep
   static void barber() {
     new Thread(() -> {
       try {
@@ -15,8 +36,8 @@ class Main {
         customer.acquire();
         log("barber: got customer");
         accessSeats.acquire();
-        seats++;
         barber.release();
+        seats++;
         accessSeats.release();
         log("barber: cutting hair");
         Thread.sleep(1000);
@@ -27,6 +48,11 @@ class Main {
     }).start();
   }
 
+  // Each customer requires a haircut:
+  // 1. occupies a seat, if available
+  // 2. wakes up the barber (c.release)
+  // 3. waits for barber to indicate his turn
+  // 4. ... his hair is cut.
   static void customer(int i) {
     new Thread(() -> {
       try {
@@ -48,6 +74,11 @@ class Main {
     }).start();
   }
 
+  // 1. barber is sleeping
+  // 2. there are no customers
+  // 3. no one is accessing seats
+  // 4. baber is started (sleeping)
+  // 5. after random intervals, customers arrive
   public static void main(String[] args) {
     try {
     barber = new Semaphore(0);
