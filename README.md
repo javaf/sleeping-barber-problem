@@ -10,12 +10,11 @@ The barber is providing 24x7 service:
 ```
 
 ```java
-The barber is providing 24x7 service:
-1. Sleeps until a customer wakes him up
-2. He picks first customer in room (b.release)
-3. One seat is freed up (seats++)
-4. Cuts customer's hair (sleep 1s)
-... Goes back to sleep
+Each customer requires a haircut:
+1. Occupies a seat, if available
+2. Wakes up the barber (c.release)
+3. Waits for barber to indicate his turn
+... His hair is cut.
 ```
 
 See [Main.java] for code, and [repl.it] for output.

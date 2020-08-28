@@ -48,7 +48,12 @@ class Main {
     }).start();
   }
 
-c  static void customer(int i) {
+  // Each customer requires a haircut:
+  // 1. Occupies a seat, if available
+  // 2. Wakes up the barber (c.release)
+  // 3. Waits for barber to indicate his turn
+  // ... His hair is cut.
+  static void customer(int i) {
     new Thread(() -> {
       try {
       log("customer "+i+": checking seats");
