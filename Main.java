@@ -23,11 +23,11 @@ class Main {
   // N: no .of customers
 
   // The barber is providing 24x7 service:
-  // 1. sleeps until a customer wakes him up
-  // 2. he picks first customer in room (b.release)
-  // 3. one seat is freed up (seats++)
-  // 4. cuts customer's hair (sleep 1s)
-  // 5. ... goes back to sleep
+  // 1. Sleeps until a customer wakes him up
+  // 2. He picks first customer in room (b.release)
+  // 3. One seat is freed up (seats++)
+  // 4. Cuts customer's hair (sleep 1s)
+  // ... Goes back to sleep
   static void barber() {
     new Thread(() -> {
       try {
@@ -48,12 +48,7 @@ class Main {
     }).start();
   }
 
-  // Each customer requires a haircut:
-  // 1. occupies a seat, if available
-  // 2. wakes up the barber (c.release)
-  // 3. waits for barber to indicate his turn
-  // 4. ... his hair is cut.
-  static void customer(int i) {
+c  static void customer(int i) {
     new Thread(() -> {
       try {
       log("customer "+i+": checking seats");
@@ -74,11 +69,11 @@ class Main {
     }).start();
   }
 
-  // 1. barber is sleeping
-  // 2. there are no customers
-  // 3. no one is accessing seats
-  // 4. baber is started (sleeping)
-  // 5. after random intervals, customers arrive
+  // 1. Barber is sleeping
+  // 2. There are no customers
+  // 3. No one is accessing seats
+  // 4. Baber is started (sleeping)
+  // 5. After random intervals, customers arrive
   public static void main(String[] args) {
     try {
     barber = new Semaphore(0);
