@@ -16,8 +16,8 @@ class Main {
   static Semaphore barber;
   static Semaphore customer;
   static Semaphore accessSeats;
-  static int seats = 4;
-  static int N = 20;
+  static int seats = 2;
+  static int N = 5;
   // accessSeats: only one sit / get up at once
   // seats: no. of seats in the waiting room
   // N: no .of customers
@@ -32,16 +32,16 @@ class Main {
     new Thread(() -> {
       try {
       while(true) {
-        log("barber: sleeping");
+        log("B: sleeping");
         customer.acquire();
-        log("barber: got customer");
+        log("B: got customer");
         accessSeats.acquire();
         barber.release();
         seats++;
         accessSeats.release();
-        log("barber: cutting hair");
+        log("B: cutting hair");
         Thread.sleep(1000);
-        log("barber: cutting done");
+        log("B: cutting done");
       }
     }
     catch(InterruptedException e) {}
@@ -56,19 +56,19 @@ class Main {
   static void customer(int i) {
     new Thread(() -> {
       try {
-      log("customer "+i+": checking seats");
+      log(i+": checking seats");
       accessSeats.acquire();
       if(seats<=0) {
-        log("customer "+i+": no seats!");
+        log(i+": no seats!");
         accessSeats.release();
         return;
       }
       seats--;
       customer.release();
       accessSeats.release();
-      log("customer "+i+": sat, seats="+seats);
+      log(i+": sat, seats="+seats);
       barber.acquire();
-      log("customer "+i+": having hair cut");
+      log(i+": having hair cut");
       }
       catch(InterruptedException e) {}
     }).start();
@@ -80,18 +80,23 @@ class Main {
   // 4. Baber is started (sleeping)
   // 5. After random intervals, customers arrive
   public static void main(String[] args) {
-    try {
+    log("Starting barber (B) with "+
+        seats+" seats"+" and "+N+" customers ...");
     barber = new Semaphore(0);
     customer = new Semaphore(0);
     accessSeats = new Semaphore(1);
     barber();
     for(int i=0; i<N; i++) {
-      Thread.sleep((long)(Math.random()*1000));
+      sleep(1000 * Math.random());
       customer(i);
     }
-    }
-    catch(InterruptedException e) {}
   }
+
+  static void sleep(double t) {
+    try { Thread.sleep((long)t); }
+    catch (InterruptedException e) {}
+  }
+
   static void log(String x) {
     System.out.println(x);
   }

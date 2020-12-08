@@ -1,4 +1,14 @@
-There is a barber sleeping in his shop. When a customer comes, he checks if the barber is sleeping and wakes him up. If there are no other customers in the waiting room, the barber cuts his hair. Else the customer takes a set in the waiting room. But if there are no seats, he leaves. Once a barber finishes cutting hair, he checks if there are any customers in the waiting room. If not, he goes back to sleep again. The idea is the barber works only when a customer arrives, and sleeps otherwise.
+There is a barber sleeping in his shop. When a
+customer comes, he checks if the barber is
+sleeping and wakes him up. If there are no other
+customers in the waiting room, the barber cuts
+his hair. Else the customer takes a set in the
+waiting room. But if there are no seats, he
+leaves. Once a barber finishes cutting hair, he
+checks if there are any customers in the waiting
+room. If not, he goes back to sleep again. The
+idea is the barber works only when a customer
+arrives, and sleeps otherwise.
 
 ```java
 The barber is providing 24x7 service:
@@ -15,6 +25,42 @@ Each customer requires a haircut:
 2. Wakes up the barber (c.release)
 3. Waits for barber to indicate his turn
 ... His hair is cut.
+```
+
+```bash
+## OUTPUT
+Starting barber (B) with 2 seats and 5 customers ...
+B: sleeping
+0: checking seats
+B: got customer
+B: cutting hair
+0: sat, seats=1
+0: having hair cut
+1: checking seats
+1: sat, seats=1
+2: checking seats
+2: sat, seats=0
+3: checking seats
+3: no seats!
+B: cutting done
+B: sleeping
+B: got customer
+B: cutting hair
+1: having hair cut
+4: checking seats
+4: sat, seats=0
+B: cutting done
+B: sleeping
+B: got customer
+B: cutting hair
+2: having hair cut
+B: cutting done
+B: sleeping
+B: got customer
+B: cutting hair
+4: having hair cut
+B: cutting done
+B: sleeping
 ```
 
 See [Main.java] for code, and [repl.it] for output.
