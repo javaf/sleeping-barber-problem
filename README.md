@@ -10,6 +10,11 @@ room. If not, he goes back to sleep again. The
 idea is the barber works only when a customer
 arrives, and sleeps otherwise.
 
+> **Course**: [Concurrent Data Structures], Monsoon 2020\
+> **Taught by**: Prof. Govindarajulu Regeti
+
+[Concurrent Data Structures]: https://github.com/iiithf/concurrent-data-structures
+
 ```java
 The barber is providing 24x7 service:
 1. Sleeps until a customer wakes him up
