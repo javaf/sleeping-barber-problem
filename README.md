@@ -79,3 +79,4 @@ See [Main.java] for code, and [repl.it] for output.
 - [Sleeping Barber Problem : Classical Problem of Process Synchronization :: HowTo](https://www.youtube.com/watch?v=OvJFpsN5czg)
 
 ![](https://ga-beacon.deno.dev/G-G1E8HNDZYY:v51jklKGTLmC3LAZ4rJbIQ/github.com/javaf/sleeping-barber-problem)
+![](https://ga-beacon.deno.dev/G-G1E8HNDZYY:v51jklKGTLmC3LAZ4rJbIQ/github.com/moocf/sleeping-barber-problem.java)
